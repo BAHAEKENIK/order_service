@@ -41,12 +41,17 @@
         body.dark-mode .sidebar-nav li a.active { background-color: var(--primary-color) !important; color: white !important; }
         .sidebar-nav li a i { margin-right: 0.75rem; width: 20px; text-align: center; font-size: 1.1rem; }
 
-        /* Notification dot styles - uses Tailwind classes primarily in the HTML */
-        .sidebar-nav li a span.notification-dot { /* Basic fallback styling if needed */
-            position: absolute;
-            top: 0.5rem; /* Adjust as needed */
-            right: 0.5rem; /* Adjust as needed */
+        .notification-dot { /* Tailwind classes in HTML, this is a fallback or can enhance */
+            position: absolute; top: 0.5rem; right: 0.5rem;
+            width: 0.625rem; height: 0.625rem; /* w-2.5 h-2.5 */
+            background-color: #EF4444; /* red-500 */
+            border-radius: 9999px; /* rounded-full */
+            border: 2px solid var(--sidebar-bg-light); /* Or appropriate background */
         }
+        body.dark-mode .sidebar-nav li a span.notification-dot {
+            border-color: var(--sidebar-bg-dark);
+        }
+
 
         .sidebar-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color-light); }
         body.dark-mode .sidebar-footer { border-top-color: var(--border-color-dark); }
@@ -89,18 +94,15 @@
             <nav class="sidebar-nav flex-grow">
                 <ul>
                     <li>
-                        <a href="{{ route('provider.requests.index') }}" class="{{ request()->routeIs('provider.requests.*') ? 'active' : '' }}">
+                        <a href="{{ route('provider.requests.index') }}" class="relative {{ request()->routeIs('provider.requests.*') ? 'active' : '' }}">
                             <i class="fas fa-concierge-bell"></i> Requests
                             @php
-                                // This logic should ideally be in a View Composer or passed from controller
                                 if(Auth::check() && Auth::user()->isProvider()){
                                     $newRequestsCount = Auth::user()->providerServiceRequests()->whereIn('status', ['pending', 'inquiry'])->count();
-                                } else {
-                                    $newRequestsCount = 0;
-                                }
+                                } else { $newRequestsCount = 0; }
                             @endphp
                             @if($newRequestsCount > 0)
-                                <span class="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-sidebar-bg-dark notification-dot" title="{{ $newRequestsCount }} new request{{ $newRequestsCount > 1 ? 's' : '' }}"></span>
+                                <span class="notification-dot" title="{{ $newRequestsCount }} new request{{ $newRequestsCount > 1 ? 's' : '' }}"></span>
                             @endif
                         </a>
                     </li>
@@ -110,8 +112,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('provider.messages.index') }}" class="{{ request()->routeIs('provider.messages.*') ? 'active' : '' }}">
+                        <a href="{{ route('provider.messages.index') }}" class="relative {{ request()->routeIs('provider.messages.*') ? 'active' : '' }}">
                             <i class="fas fa-inbox"></i> Inbox
+                            @php
+                                // Count unread messages for the provider
+                                // This is a simplified query for illustration. In a real app, you'd optimize this.
+                                $unreadMessagesCount = 0;
+                                if(Auth::check() && Auth::user()->isProvider()){
+                                    $unreadMessagesCount = \App\Models\Message::where('receiver_id', Auth::id())
+                                                                    ->whereNull('read_at')
+                                                                    ->count();
+                                }
+                            @endphp
+                            @if($unreadMessagesCount > 0)
+                                <span class="notification-dot" title="{{ $unreadMessagesCount }} unread message{{ $unreadMessagesCount > 1 ? 's' : '' }}"></span>
+                            @endif
                         </a>
                     </li>
                     <li>
@@ -139,9 +154,6 @@
 
         <div class="main-content-wrapper">
             <header class="content-header">
-                {{-- <button id="mobileMenuButton" class="lg:hidden p-2 mr-2 text-gray-600 dark:text-gray-300">
-                    <i class="fas fa-bars text-xl"></i>
-                </button> --}}
                 <h1 class="content-title">@yield('page-title', 'Provider Dashboard')</h1>
                 <div class="top-bar-actions">
                      <button id="theme-toggle-dashboard" title="Toggle Theme">
@@ -165,6 +177,11 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                @if(session('info'))
+                    <div style="background-color: #DBEAFE; color: #1E40AF; padding: 1rem; border-radius: 0.375rem; margin-bottom: 1.5rem; font-size:0.9rem;">
+                        {{ session('info') }}
+                    </div>
+                @endif
                 @yield('content')
             </main>
         </div>
@@ -173,8 +190,8 @@
     const themeToggleDashboard = document.getElementById('theme-toggle-dashboard');
     const body = document.body;
     const applyDashboardTheme = (theme) => {
-        const sunIcon = themeToggleDashboard.querySelector('.fa-sun');
-        const moonIcon = themeToggleDashboard.querySelector('.fa-moon');
+        const sunIcon = themeToggleDashboard?.querySelector('.fa-sun'); // Add optional chaining
+        const moonIcon = themeToggleDashboard?.querySelector('.fa-moon'); // Add optional chaining
         if (theme === 'dark') {
             body.classList.add('dark-mode'); document.documentElement.classList.add('dark');
             if(sunIcon) sunIcon.style.display='none'; if(moonIcon) moonIcon.style.display='inline';
