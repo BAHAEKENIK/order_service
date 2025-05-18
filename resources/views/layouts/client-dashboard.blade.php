@@ -203,7 +203,7 @@
                         <i class="fas fa-moon" style="display:none;"></i>
                     </button>
                     <a href="{{ route('client.contact.admin') }}" title="Contact Admin / Notifications">
-    <i class="fas fa-bell"></i>
+    <i class="fas fa-headset"></i>
     {{-- You can add a badge here for unread admin messages later --}}
 </a>
                     <form method="POST" action="{{ route('logout') }}" class="inline">

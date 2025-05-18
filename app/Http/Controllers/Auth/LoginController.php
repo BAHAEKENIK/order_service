@@ -45,13 +45,17 @@ class LoginController extends Controller
         // Redirect based on role
         $user = Auth::user();
         if ($user->isAdmin()) {
-            return redirect()->intended(route('admin.dashboard', [], false)); // Assuming you have an admin.dashboard route
+            // Assuming you'll have an admin dashboard route like 'admin.dashboard'
+            // If 'admin.dashboard' redirects further based on admin sub-roles, that's fine.
+            return redirect()->intended(route('admin.dashboard', [], false));
         } elseif ($user->isProvider()) {
-            return redirect()->intended(route('provider.dashboard', [], false)); // Assuming a provider.dashboard route
+            // Redirect provider to their main requests page
+            return redirect()->intended(route('provider.requests.index', [], false)); // MODIFIED LINE
         }
 
-        // Default redirect for clients or other roles
-        return redirect()->intended(route('dashboard', [], false)); // Assumes a general 'dashboard' route
+        // Default redirect for clients
+        // The general 'dashboard' route in web.php will redirect clients to 'client.requests.my'
+        return redirect()->intended(route('dashboard', [], false));
     }
 
     /**
