@@ -1,86 +1,134 @@
 <p align="center">
-  <img src="public/images/logo.png" alt="Order-Services Logo" width="150" />
+  <img src="public/images/logo.png" alt="Order-Services Logo" width="200"/>
 </p>
 
 <h1 align="center">Order-Services</h1>
+<p align="center"><em>A Professional Services Marketplace — Inspired by Armut & Thumbtack</em></p>
 
 <p align="center">
-  <b>Inspired by Armut / Thumbtack</b><br>
-  Connect clients with service providers through a powerful Laravel 12 platform.
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Laravel-12-red?logo=laravel" alt="Laravel Version" />
-  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" />
-  <img src="https://img.shields.io/badge/status-in%20development-yellow" alt="Project Status" />
+  <img src="https://img.shields.io/badge/Laravel-12-red?style=flat-square&logo=laravel" />
+  <img src="https://img.shields.io/badge/TailwindCSS-3-blue?style=flat-square&logo=tailwindcss" />
+  <img src="https://img.shields.io/badge/MySQL-Active-blue?style=flat-square&logo=mysql" />
 </p>
 
 ---
 
-## 🎯 Project Goal
+## 🌟 Project Overview
 
-To build a service marketplace where clients easily find and book providers. This version focuses on key functionality, excluding payment systems for simplicity.
-
----
-
-## 🚀 Core Features
-
-### 👥 Multi-Role System
-- **Client**: Browse and request services.
-- **Provider**: Offer services, accept requests.
-- **Admin**: Manage users, services, reviews, and messages.
-
-### 🧑 Client Capabilities
-- Filter services/providers by **location**, **category**, and **ratings**.
-- Send requests with **details, address, and proposed budget**.
-- Track request status and message providers.
-- Leave **reviews** and manage profile.
-- Option to **become a provider**.
-
-### 🧑‍🔧 Provider Tools
-- Manage own **service listings** (with price, images, availability).
-- Accept or refuse incoming requests.
-- Update request status, message clients, and manage profile.
-- View client reviews and respond.
-
-### 🛡️ Admin Powers
-- Full dashboard: **user & service analytics**.
-- Moderate: users, services, categories, reviews.
-- View all activity and communicate with any user.
-
-### ⚙️ System Features
-- Middleware-based **role access** control.
-- **Notification system** (planned).
-- CSRF protection, validations, and theme toggling.
-- Image uploads and dynamic rating calculations.
+**Order-Services** is a Laravel-based full-stack web application connecting clients with professional service providers. Built as a PFE (Projet de Fin d'Études), it offers seamless user role management, dynamic service browsing, intelligent request handling, and secure internal communication — all styled using **Tailwind CSS**.
 
 ---
 
-## 🧰 Technologies
+## 🎯 Objectives
 
-| Layer       | Tech Stack                                      |
-|-------------|-------------------------------------------------|
-| Backend     | PHP, **Laravel 12**                             |
-| Frontend    | HTML, Tailwind CSS, JavaScript                  |
-| Database    | MySQL                                           |
-| Tools       | Laravel Sail / Valet / XAMPP (Dev Envs)         |
-| Build Tool  | Vite (Frontend Asset Compilation)               |
+- Build a robust, user-friendly, and scalable service marketplace.
+- Implement real-world features like provider-client messaging, service request workflows, and review systems.
+- Apply full-stack technologies with Laravel 12 and Tailwind CSS.
 
 ---
 
-## 🛠️ Installation
+## 🔑 Key Features
+
+### 👥 Users & Roles
+
+- **Multi-Role Authentication**
+  - 👤 **Client** (default)
+  - 🔧 **Provider** (upgradeable)
+  - 🛡️ **Admin**
+- Role-specific dashboards and permissions
+
+### 🛒 Client Capabilities
+
+- Browse & filter services
+- Send detailed requests
+- Track request statuses
+- Chat with accepted providers
+- Rate completed services
+- Apply to become a provider
+
+### 🧰 Provider Capabilities
+
+- Create/manage service listings
+- Respond to client requests
+- Track service progress
+- Internal messaging with clients
+- Manage professional profile
+
+### 🧑‍💼 Admin Capabilities
+
+- Manage users, services, and categories
+- Moderate reviews and contact requests
+- Access dashboard statistics
+- Intervene in service requests and chats
+
+### 🧠 System Features
+
+- Role-based access via middleware
+- Dynamic average rating calculation
+- Light/Dark mode (Tailwind toggle)
+- Secure form handling & validation
+
+---
+
+## 🧱 Tech Stack
+
+| Layer        | Technology                    |
+| ------------ | ----------------------------- |
+| Backend      | PHP 8+, Laravel 12            |
+| Frontend     | Blade, Tailwind CSS, Vite     |
+| Database     | MySQL                         |
+| Messaging    | Laravel Channels (planned Echo/WebSockets) |
+| Storage      | Laravel Filesystem + symbolic linking |
+| Mail         | Gmail SMTP                    |
+
+---
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+
+- PHP ≥ 8.1  
+- Composer  
+- Node.js & npm  
+- MySQL  
+
+### Steps
 
 ```bash
 # 1. Clone the repo
 git clone <your-repository-url> order-services
 cd order-services
 
-# 2. Install PHP dependencies
+# 2. Install backend dependencies
 composer install
 
-# 3. Install JS dependencies
+# 3. Install frontend dependencies
 npm install
 
-# 4. Environment setup
+# 4. Setup environment file
 cp .env.example .env
+
+# 5. Generate app key
 php artisan key:generate
+
+# 6. Configure .env (DB, Mail, APP_URL)
+# Especially update:
+# APP_URL=http://localhost:8000
+# DB_DATABASE=your_db_name
+# MAIL_USERNAME=your-gmail@gmail.com
+# MAIL_PASSWORD=your-app-password
+
+# 7. Run migrations
+php artisan migrate
+
+# 8. Seed the database
+php artisan db:seed
+
+# 9. Link storage
+php artisan storage:link
+
+# 10. Compile assets
+npm run dev  # or npm run build for production
+
+# 11. Serve the application
+php artisan serve
