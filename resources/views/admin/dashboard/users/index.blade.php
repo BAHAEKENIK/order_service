@@ -192,7 +192,7 @@
                             <td>{{ $user->created_at->format('M d, Y') }}</td>
                             <td class="user-actions">
                                 <a href="{{ route('admin.users.show', $user) }}" class="btn btn-action-view" title="View Details"><i class="fas fa-eye"></i> <span class="hidden sm:inline ml-1">Consulter</span></a>
-                                <a href="{{ route('admin.users.chat', $user) }}" class="btn btn-action-chat" title="Chat with User"><i class="fas fa-comments"></i> <span class="hidden sm:inline ml-1">Chater</span></a>
+                                <a href="{{ route('admin.users.chat', $user) }}" class="btn btn-action-chat" title="Chat with User"><i class="fas fa-comments"></i> <span class="hidden sm:inline ml-1">Contacter</span></a>
                                 <button type="button" class="btn btn-action-delete" onclick="confirmSingleUserDeleteByAdmin('{{ $user->id }}', '{{ $user->name }}')" title="Delete User"><i class="fas fa-trash-alt"></i> <span class="hidden sm:inline ml-1">Supprimer</span></button>
                             </td>
                         </tr>
