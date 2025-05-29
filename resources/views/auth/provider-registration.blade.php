@@ -112,9 +112,8 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('provider.register.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('provider.register.storeDetails') }}" enctype="multipart/form-data">
             @csrf
-            {{-- Hidden fields from the initial registration step if needed, or pass them through session --}}
             <input type="hidden" name="name" value="{{ session('registration_data.name', old('name')) }}">
             <input type="hidden" name="email" value="{{ session('registration_data.email', old('email')) }}">
             <input type="hidden" name="password" value="{{ session('registration_data.password') }}">
