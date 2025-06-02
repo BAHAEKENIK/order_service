@@ -32,7 +32,6 @@
     .status-new { background-color: #FEF3C7; color: #92400E; } body.dark-mode .status-new { background-color: #78350F; color: #FDE68A;}
     .status-read_by_admin { background-color: #DBEAFE; color: #1E40AF; } body.dark-mode .status-read_by_admin { background-color: #1E3A8A; color: #BFDBFE;}
     .status-replied { background-color: #D1FAE5; color: #065F46; } body.dark-mode .status-replied { background-color: #064E3B; color: #A7F3D0;}
-    /* You can add .status-archived if you implement that functionality */
 
     .btn-view-reply {
         padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius:0.375rem;

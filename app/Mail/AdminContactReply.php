@@ -17,9 +17,6 @@ class AdminContactReply extends Mailable
     public $replyContent;
     public $recipientName;
 
-    /**
-     * Create a new message instance.
-     */
     public function __construct(string $replySubject, string $replyContent, string $recipientName)
     {
         $this->replySubject = $replySubject;
@@ -27,9 +24,6 @@ class AdminContactReply extends Mailable
         $this->recipientName = $recipientName;
     }
 
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
         return new Envelope(
@@ -38,9 +32,6 @@ class AdminContactReply extends Mailable
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
     public function content(): Content
     {
         return new Content(
@@ -52,11 +43,6 @@ class AdminContactReply extends Mailable
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
     public function attachments(): array
     {
         return [];

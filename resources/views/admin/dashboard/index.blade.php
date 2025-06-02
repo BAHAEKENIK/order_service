@@ -168,13 +168,7 @@
          <div class="activity-feed-card">
             <h3 class="form-section-heading">Recent Activity</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400">Platform activity summary will be shown here...</p>
-            {{-- Example:
-            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                <li>New provider registered: John Doe</li>
-                <li>Service request #123 completed.</li>
-                <li>Category "Gardening" added.</li>
-            </ul>
-            --}}
+            
         </div>
     </div>
 @endsection

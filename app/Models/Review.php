@@ -23,43 +23,26 @@ class Review extends Model
         'is_moderated' => 'boolean',
     ];
 
-    // Relations
-
-    /**
-     * Get the service request this review belongs to.
-     */
     public function serviceRequest()
     {
         return $this->belongsTo(ServiceRequest::class);
     }
 
-    /**
-     * Get the client (user) who wrote this review.
-     */
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');
     }
 
-    /**
-     * Get the provider (user) who received this review.
-     */
     public function provider()
     {
         return $this->belongsTo(User::class, 'provider_id');
     }
 
-    /**
-     * Scope a query to only include moderated reviews.
-     */
     public function scopeModerated($query)
     {
         return $query->where('is_moderated', true);
     }
 
-    /**
-     * Scope a query to only include unmoderated reviews.
-     */
     public function scopeUnmoderated($query)
     {
         return $query->where('is_moderated', false);

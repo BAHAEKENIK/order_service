@@ -12,9 +12,9 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('slug')->unique(); // Pour les URLs
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->string('icon_path')->nullable(); // Optionnel: pour une icône de catégorie
+            $table->string('icon_path')->nullable();
             $table->timestamps();
         });
     }

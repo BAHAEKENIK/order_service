@@ -19,22 +19,14 @@ class ContactUsMessage extends Model
         'user_id',
         'status',
         'admin_notes',
-        'admin_reply', // ADD THIS
-        'replied_at',  // ADD THIS
+        'admin_reply',
+        'replied_at',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
-        'replied_at' => 'datetime', // ADD THIS
+        'replied_at' => 'datetime',
     ];
 
-    /**
-     * Get the user who sent the message (if logged in).
-     */
     public function user()
     {
         return $this->belongsTo(User::class);

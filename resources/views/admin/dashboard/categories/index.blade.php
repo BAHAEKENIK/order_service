@@ -7,29 +7,29 @@
 <style>
     .category-management-container {
         display: grid;
-        grid-template-columns: 1fr; /* Default to 1 column */
-        gap: 2rem; /* Space between table and form */
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
-    @media (min-width: 1024px) { /* lg breakpoint */
+    @media (min-width: 1024px) {
         .category-management-container {
-            grid-template-columns: minmax(0, 2.5fr) minmax(0, 1.5fr); /* Table takes more space */
+            grid-template-columns: minmax(0, 2.5fr) minmax(0, 1.5fr);
         }
     }
 
-    .content-card { /* Replaces table-container and add-category-form-container */
+    .content-card {
         background-color: var(--card-bg-light);
-        border-radius: 0.5rem; /* 8px */
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); /* shadow-md */
-        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        padding: 1.5rem;
     }
     body.dark-mode .content-card {
         background-color: var(--card-bg-dark);
     }
 
     .content-card-header {
-        font-size: 1.125rem; /* text-lg */
-        font-weight: 600; /* semibold */
+        font-size: 1.125rem;
+        font-weight: 600;
         margin-bottom: 1rem;
         padding-bottom: 0.75rem;
         border-bottom: 1px solid var(--border-color-light);
@@ -44,17 +44,17 @@
     }
     .categories-table th,
     .categories-table td {
-        padding: 0.75rem 1rem; /* py-3 px-4 */
+        padding: 0.75rem 1rem;
         text-align: left;
         border-bottom: 1px solid var(--border-color-light);
-        font-size: 0.875rem; /* text-sm */
+        font-size: 0.875rem;
         vertical-align: middle;
     }
     body.dark-mode .categories-table th, body.dark-mode .categories-table td {
         border-bottom-color: var(--border-color-dark);
     }
     .categories-table th {
-        font-weight: 600; /* semibold */
+        font-weight: 600;
         color: var(--text-muted-light);
         text-transform: uppercase;
         letter-spacing: 0.05em;
@@ -93,26 +93,25 @@
     body.dark-mode .btn-add-category { background-color: var(--secondary-color); color: var(--text-dark) !important; }
     .pagination-links { margin-top: 1.5rem; }
 
-    /* === MODAL STYLES - THEME AWARE (MATCHES PAGE THEME) === */
     .modal {
         display: none; position: fixed; z-index: 1050; left: 0; top: 0;
         width: 100%; height: 100%; overflow: auto;
-        background-color: rgba(0,0,0,0.6); /* Semi-transparent backdrop */
+        background-color: rgba(0,0,0,0.6);
         align-items:center; justify-content:center;
         transition: opacity 0.3s ease;
     }
     .modal.active { display: flex; opacity: 1; }
     .modal-content {
-        background-color: var(--card-bg-light); /* Default: Light background for modal */
-        color: var(--text-dark);               /* Default: Dark text for modal */
+        background-color: var(--card-bg-light);
+        color: var(--text-dark);
         margin: auto; padding: 2rem; border-radius: 0.5rem;
         width: 90%; max-width: 450px; position: relative;
         box-shadow: 0 10px 25px rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.1);
         border: 1px solid var(--border-color-dark);
     }
     body.dark-mode .modal-content {
-        background-color: var(--card-bg-dark); /* Dark background for modal in dark mode */
-        color: var(--text-light);              /* Light text for modal in dark mode */
+        background-color: var(--card-bg-dark);
+        color: var(--text-light);
         border: 1px solid var(--border-color-light);
     }
 
@@ -125,18 +124,16 @@
     body.dark-mode .modal-close-btn:hover, body.dark-mode .modal-close-btn:focus { color: var(--text-light); }
 
     .modal-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
-    /* Modal text will inherit from .modal-content based on the theme */
     .modal-text { font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.6; }
     .modal-text strong { font-weight: 600; }
     #deleteCategoryWarningText { font-size:0.85rem; padding: 0.5rem; border-radius: 0.25rem; margin-bottom: 1rem; }
-    body:not(.dark-mode) #deleteCategoryWarningText { background-color: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; } /* amber-50, amber-700 */
-    body.dark-mode #deleteCategoryWarningText { background-color: #3B322C; color: #FCD34D; border: 1px solid #78350F; } /* amber-800, amber-300 */
+    body:not(.dark-mode) #deleteCategoryWarningText { background-color: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+    body.dark-mode #deleteCategoryWarningText { background-color: #3B322C; color: #FCD34D; border: 1px solid #78350F; }
 
 
     .modal-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top:1.5rem; }
     .modal-btn { padding: 0.5rem 1rem; border-radius:0.375rem; border:none; cursor:pointer; font-weight: 500; }
 
-    /* Cancel button: follows theme's secondary button style roughly */
     .modal-btn-cancel {
         background-color: var(--border-color-light);
         color: var(--text-dark);
@@ -148,14 +145,12 @@
         color: var(--text-light);
         border: 1px solid var(--border-color-light);
     }
-    /* Confirm (Delete) button: danger style */
     .modal-btn-confirm { background-color: #DC2626; color: white; }
     .modal-btn-confirm:hover { background-color: #B91C1C; }
-    body.dark-mode .modal-btn-confirm { /* Keep it clearly a danger action */
+    body.dark-mode .modal-btn-confirm {
         background-color: #EF4444; color: white;
     }
      body.dark-mode .modal-btn-confirm:hover { background-color: #DC2626; }
-    /* === END OF MODAL STYLES === */
 
 </style>
 @endpush
@@ -226,9 +221,8 @@
     </div>
 </div>
 
-<!-- Delete Category Modal -->
 <div id="deleteCategoryModal" class="modal">
-    <div class="modal-content"> {{-- This modal will now follow the page theme directly --}}
+    <div class="modal-content">
         <span class="modal-close-btn" onclick="closeDeleteCategoryModal()">×</span>
         <h4 class="modal-title text-red-600 dark:text-red-400">Confirm Category Deletion</h4>
         <p id="deleteCategoryModalTextMain" class="modal-text">Are you sure you want to delete the category <strong id="categoryNameToDelete" class="font-semibold"></strong>? This action cannot be undone.</p>
@@ -250,24 +244,21 @@
     const deleteCategoryModal = document.getElementById('deleteCategoryModal');
     const deleteCategoryForm = document.getElementById('deleteCategoryForm');
     const categoryNameToDeleteSpan = document.getElementById('categoryNameToDelete');
-    const deleteCategoryWarningText = document.getElementById('deleteCategoryWarningText'); // Element for specific warning
-    const deleteCategoryModalTextMain = document.getElementById('deleteCategoryModalTextMain'); // Main modal text
-
+    const deleteCategoryWarningText = document.getElementById('deleteCategoryWarningText');
+    const deleteCategoryModalTextMain = document.getElementById('deleteCategoryModalTextMain');
 
     function confirmCategoryDelete(categoryId, categoryName, itemCount) {
         if(deleteCategoryForm) deleteCategoryForm.action = "{{ url('admin/categories') }}/" + categoryId;
         if(categoryNameToDeleteSpan) categoryNameToDeleteSpan.textContent = categoryName;
 
-        // Always show the base message
         if(deleteCategoryModalTextMain) deleteCategoryModalTextMain.innerHTML = `Are you sure you want to delete category <strong class="font-semibold">${categoryName}</strong>? This action cannot be undone.`;
 
         if (itemCount > 0) {
             if(deleteCategoryWarningText) {
                 deleteCategoryWarningText.innerHTML = `Warning: This category is currently associated with <strong>${itemCount}</strong> service(s) and/or request(s). Deleting it might cause issues unless these items are reassigned or also handled.`;
                 deleteCategoryWarningText.style.display = 'block';
-                // Style warning text (inline for simplicity or add classes)
-                deleteCategoryWarningText.style.backgroundColor = document.body.classList.contains('dark-mode') ? 'var(--sidebar-active-bg-dark)' : '#FFFBEB'; // Amber-50ish
-                deleteCategoryWarningText.style.color = document.body.classList.contains('dark-mode') ? '#FCD34D': '#B45309'; // Amber-400ish / Amber-700
+                deleteCategoryWarningText.style.backgroundColor = document.body.classList.contains('dark-mode') ? 'var(--sidebar-active-bg-dark)' : '#FFFBEB';
+                deleteCategoryWarningText.style.color = document.body.classList.contains('dark-mode') ? '#FCD34D': '#B45309';
                 deleteCategoryWarningText.style.padding = '0.5rem';
                 deleteCategoryWarningText.style.borderRadius = '0.25rem';
                 deleteCategoryWarningText.style.border = `1px solid ${document.body.classList.contains('dark-mode') ? '#78350F' : '#FDE68A'}`;
@@ -278,16 +269,16 @@
         }
 
         if(deleteCategoryModal) {
-             deleteCategoryModal.style.opacity = 0; // Start faded out
+             deleteCategoryModal.style.opacity = 0;
             deleteCategoryModal.style.display = "flex";
-            setTimeout(() => { deleteCategoryModal.style.opacity = 1; }, 10); // Trigger fade-in
+            setTimeout(() => { deleteCategoryModal.style.opacity = 1; }, 10);
         }
     }
 
     function closeDeleteCategoryModal() {
         if(deleteCategoryModal) {
             deleteCategoryModal.style.opacity = 0;
-            setTimeout(() => { deleteCategoryModal.style.display = "none"; }, 300); // Wait for fade
+            setTimeout(() => { deleteCategoryModal.style.display = "none"; }, 300);
         }
     }
 

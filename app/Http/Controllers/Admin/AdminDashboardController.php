@@ -1,3 +1,6 @@
+Voici le code sans commentaires et structuré sans modification fonctionnelle :
+
+```php
 <?php
 
 namespace App\Http\Controllers\Admin;
@@ -23,7 +26,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-
 
 class AdminDashboardController extends Controller
 {
@@ -71,10 +73,7 @@ class AdminDashboardController extends Controller
         return view('admin.dashboard.users.show', compact('user'));
     }
 
-    /**
-     * Remove the specified user from storage (Admin action).
-     */
-    public function destroyUser(User $user) // No need for Request $request if not using password confirm here
+    public function destroyUser(User $user)
     {
         $admin = Auth::user();
         if ($user->id === $admin->id || $user->isAdmin()) {
@@ -84,7 +83,6 @@ class AdminDashboardController extends Controller
         $userName = $user->name;
         try {
             DB::transaction(function () use ($user) {
-                // Provider-specific cleanup
                 if ($user->isProvider() && $user->providerDetail) {
                     foreach ($user->services as $service) {
                         if ($service->image_path && Storage::disk('public')->exists($service->image_path)) { Storage::disk('public')->delete($service->image_path); }
@@ -93,7 +91,7 @@ class AdminDashboardController extends Controller
                     }
                     if (is_iterable($user->providerDetail->certificates)) {
                         foreach ($user->providerDetail->certificates as $certificate) {
-                            if (isset($certificate['file_url'])) { // Use 'file_url' consistent with ProviderDetailFactory/Controller
+                            if (isset($certificate['file_url'])) {
                                 $filePath = Str::after($certificate['file_url'], Storage::url(''));
                                 if (Storage::disk('public')->exists($filePath)) Storage::disk('public')->delete($filePath);
                             }
@@ -103,22 +101,19 @@ class AdminDashboardController extends Controller
                     $user->providerDetail->delete();
                 }
 
-                // Generic User cleanup
                 if ($user->profile_photo_path && Storage::disk('public')->exists($user->profile_photo_path)) {
-                    Storage::disk('public')->delete($user->profile_photo_path); // Delete file
+                    Storage::disk('public')->delete($user->profile_photo_path);
                     $profilePhotoDir = 'profile-photos/' . $user->id;
                     if (Storage::disk('public')->exists($profilePhotoDir) && count(Storage::disk('public')->allFiles($profilePhotoDir)) === 0) {
-                        Storage::disk('public')->deleteDirectory($profilePhotoDir); // Delete directory if empty
+                        Storage::disk('public')->deleteDirectory($profilePhotoDir);
                     }
                 }
 
-                // Update ServiceRequests: Set client_id/provider_id to null or handle differently
-                ServiceRequest::where('client_id', $user->id)->update(['client_id' => null]); // Or delete
-                ServiceRequest::where('provider_id', $user->id)->update(['provider_id' => null, 'status' => 'cancelled_provider_deleted']); // Or delete/reassign
+                ServiceRequest::where('client_id', $user->id)->update(['client_id' => null]);
+                ServiceRequest::where('provider_id', $user->id)->update(['provider_id' => null, 'status' => 'cancelled_provider_deleted']);
 
                 Message::where('sender_id', $user->id)->orWhere('receiver_id', $user->id)->delete();
                 Review::where('client_id', $user->id)->orWhere('provider_id', $user->id)->delete();
-                // $user->contactUsMessages()->delete(); // Assuming relation exists
 
                 $user->delete();
             });
@@ -129,9 +124,6 @@ class AdminDashboardController extends Controller
         }
     }
 
-    /**
-     * Handle bulk user deletion.
-     */
     public function bulkDestroyUsers(Request $request)
     {
         $admin = Auth::user();
@@ -157,17 +149,16 @@ class AdminDashboardController extends Controller
         $errorMessages = [];
 
         foreach ($usersToDelete as $user) {
-            $userName = $user->name; // For logging/messaging
+            $userName = $user->name;
             try {
                 DB::transaction(function () use ($user) {
                     if ($user->isProvider() && $user->providerDetail) {
-                        // Provider data cleanup (services, certificate files)
                         foreach ($user->services as $service) {
                             if ($service->image_path && Storage::disk('public')->exists($service->image_path)) {
                                 Storage::disk('public')->delete($service->image_path);
                             }
-                            $service->serviceRequests()->update(['service_id' => null]); // Unlink SRs from this specific service
-                            $service->delete(); // Delete the service
+                            $service->serviceRequests()->update(['service_id' => null]);
+                            $service->delete();
                         }
                         if (is_iterable($user->providerDetail->certificates)) {
                             foreach ($user->providerDetail->certificates as $certificate) {
@@ -179,17 +170,14 @@ class AdminDashboardController extends Controller
                                 }
                             }
                         }
-                        $user->providerDetail->delete(); // Delete the ProviderDetail record
+                        $user->providerDetail->delete();
                     }
 
-                    // Generic user asset directory cleanup
                     if ($user->profile_photo_path && Storage::disk('public')->exists($user->profile_photo_path)) {
-                         // Attempt to delete the specific file first, then the directory.
-                         // Simpler approach for bulk: just delete directory. Assuming profile_photo_path is a file within 'profile-photos/' . $user->id
                         $profilePhotoDir = 'profile-photos/' . $user->id;
                         if(Storage::disk('public')->exists($profilePhotoDir)) {
                             Storage::disk('public')->deleteDirectory($profilePhotoDir);
-                        } elseif (Storage::disk('public')->exists($user->profile_photo_path)) { // Fallback if it's just a file not in a user-specific dir
+                        } elseif (Storage::disk('public')->exists($user->profile_photo_path)) {
                             Storage::disk('public')->delete($user->profile_photo_path);
                         }
                     }
@@ -197,15 +185,12 @@ class AdminDashboardController extends Controller
                         Storage::disk('public')->deleteDirectory('certificates/' . $user->id);
                     }
 
-                    // Delete related records
-                    // Note: This is different from single destroyUser which updates SRs. Bulk delete is more aggressive here.
                     ServiceRequest::where('client_id', $user->id)->delete();
                     ServiceRequest::where('provider_id', $user->id)->delete();
                     Message::where('sender_id', $user->id)->orWhere('receiver_id', $user->id)->delete();
                     Review::where('client_id', $user->id)->orWhere('provider_id', $user->id)->delete();
-                    // ContactUsMessage::where('user_id', $user->id)->delete(); // If applicable
 
-                    $user->delete(); // Finally, delete the user
+                    $user->delete();
                 });
                 $deletedCount++;
             } catch (\Exception $e) {
@@ -222,30 +207,21 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.users.index')->with($feedback);
     }
 
-    /**
-     * Display a listing of categories.
-     */
     public function manageCategories()
     {
-        // Eager load counts of services and service requests for each category
         $categories = Category::withCount(['services', 'serviceRequests'])
                               ->orderBy('name')
                               ->paginate(10);
         return view('admin.dashboard.categories.index', compact('categories'));
     }
 
-    /**
-     * Store a newly created category in storage.
-     */
     public function storeCategory(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:categories,name',
             'description' => 'nullable|string|max:1000',
-            // 'icon_path' => 'nullable|image|mimes:jpeg,png,svg|max:1024' // If you implement icon uploads
         ]);
 
-        // Sanitize description if it contains HTML, or use a proper WYSIWYG editor and purifier
         $description = $validated['description'] ? strip_tags($validated['description']) : null;
 
         Category::create([
@@ -257,21 +233,12 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
 
-    /**
-     * Remove the specified category from storage.
-     */
     public function destroyCategory(Category $category)
     {
-        // Check if the category is associated with any services or service requests
         if ($category->services()->count() > 0 || $category->serviceRequests()->count() > 0) {
             return redirect()->route('admin.categories.index')
                              ->with('error', "Cannot delete category '{$category->name}'. It is currently associated with existing services or service requests. Please reassign or delete them first.");
         }
-
-        // If you had category icons stored:
-        // if ($category->icon_path && Storage::disk('public')->exists($category->icon_path)) {
-        //     Storage::disk('public')->delete($category->icon_path);
-        // }
 
         $categoryName = $category->name;
         $category->delete();
@@ -279,31 +246,21 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.categories.index')->with('success', "Category '{$categoryName}' deleted successfully.");
     }
 
-
-    /**
-     * Display a listing of contact us messages.
-     */
     public function contactMessages()
     {
-        $messages = ContactUsMessage::with('user:id,name')->latest()->paginate(10); // Eager load user if message is from a logged-in user
+        $messages = ContactUsMessage::with('user:id,name')->latest()->paginate(10);
         return view('admin.dashboard.contact-messages.index', compact('messages'));
     }
 
-    /**
-     * Show a specific contact message and form to reply.
-     */
     public function showContactMessage(ContactUsMessage $contactMessage)
     {
         if ($contactMessage->status === 'new') {
-            $contactMessage->status = 'read_by_admin'; // More specific status
+            $contactMessage->status = 'read_by_admin';
             $contactMessage->save();
         }
         return view('admin.dashboard.contact-messages.show', compact('contactMessage'));
     }
 
-    /**
-     * Send a reply to a contact us message.
-     */
     public function replyContactMessage(Request $request, ContactUsMessage $contactMessage)
     {
         $validated = $request->validate([
@@ -315,10 +272,10 @@ class AdminDashboardController extends Controller
             Mail::to($contactMessage->email)->send(new AdminContactReply(
                 $validated['reply_subject'],
                 $validated['reply_content'],
-                $contactMessage->name // Recipient name
+                $contactMessage->name
             ));
             $contactMessage->status = 'replied';
-            $contactMessage->admin_reply = $validated['reply_content']; // Storing reply itself
+            $contactMessage->admin_reply = $validated['reply_content'];
             $contactMessage->replied_at = now();
             $contactMessage->save();
             return redirect()->route('admin.contact-messages.show', $contactMessage)->with('success', 'Reply sent successfully to ' . $contactMessage->email);
@@ -328,10 +285,6 @@ class AdminDashboardController extends Controller
         }
     }
 
-
-    /**
-     * Display the admin's internal inbox (chats with users).
-     */
     public function adminInbox()
     {
         $adminId = Auth::id();
@@ -364,9 +317,6 @@ class AdminDashboardController extends Controller
         return view('admin.dashboard.inbox.index', compact('conversations', 'adminId'));
     }
 
-    /**
-     * Show a specific chat for the Admin.
-     */
     public function showAdminChat(ServiceRequest $serviceRequest)
     {
         $admin = Auth::user();
@@ -394,9 +344,6 @@ class AdminDashboardController extends Controller
         return view('admin.dashboard.inbox.chat', compact('serviceRequest', 'otherParty', 'admin'));
     }
 
-    /**
-     * Store a message sent by Admin.
-     */
     public function storeAdminMessage(Request $request, ServiceRequest $serviceRequest)
     {
         $admin = Auth::user();
@@ -468,18 +415,12 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.inbox.chat', $chatContextRequest->id);
     }
 
-    /**
-     * Show admin's own profile for editing.
-     */
     public function adminProfile()
     {
         $admin = Auth::user();
         return view('admin.dashboard.profile.edit', compact('admin'));
     }
 
-    /**
-     * Update admin's own profile.
-     */
     public function updateAdminProfile(Request $request)
     {
         $user = Auth::user();
@@ -517,3 +458,4 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.profile.edit')->with('success', 'Admin profile updated successfully.');
     }
 }
+```

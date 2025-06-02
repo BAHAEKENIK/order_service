@@ -10,7 +10,7 @@
         padding: 2rem;
         border-radius: 0.5rem;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-        max-width: 700px; /* Centered form */
+        max-width: 700px;
         margin: 0 auto;
     }
     body.dark-mode .profile-form-container {
@@ -18,8 +18,8 @@
     }
 
     .form-section-heading {
-        font-size: 1.125rem; /* text-lg */
-        font-weight: 600; /* semibold */
+        font-size: 1.125rem;
+        font-weight: 600;
         padding-bottom: 0.75rem;
         margin-bottom: 1.5rem;
         border-bottom: 1px solid var(--border-color-light);
@@ -35,12 +35,12 @@
         border: 1px solid var(--border-color-light);
         border-radius: 0.375rem;
         font-size: 0.875rem;
-        background-color: #F9FAFB; /* Light gray for inputs */
+        background-color: #F9FAFB;
         color: var(--text-dark);
     }
     body.dark-mode .form-input, body.dark-mode .form-file-input {
-        background-color: var(--border-color-dark); /* Darker input background */
-        border-color: #4B5563; /* Slightly darker border */
+        background-color: var(--border-color-dark);
+        border-color: #4B5563;
         color: var(--text-light);
     }
     .form-input:focus, .form-file-input:focus {
@@ -77,7 +77,6 @@
     <div class="profile-form-container">
         <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            {{-- No method spoofing needed for POST route, but PUT/PATCH are common for updates --}}
 
             <h3 class="form-section-heading">Update Your Profile Information</h3>
 
@@ -126,13 +125,11 @@
             </div>
         </form>
     </div>
-
-    {{-- Account Deletion section intentionally omitted for Admin's own profile as it's a high-risk action typically handled differently. --}}
 @endsection
 
 @push('scripts')
 <script>
-    function previewAdminPhoto(event) { // Renamed to avoid conflict if another page has previewPhoto
+    function previewAdminPhoto(event) {
         const reader = new FileReader();
         reader.onload = function(){
             const output = document.getElementById('photoPreview');
@@ -140,9 +137,6 @@
         };
         if (event.target.files[0]) {
             reader.readAsDataURL(event.target.files[0]);
-        } else {
-            // Optionally revert to a default or the original image if no file is selected after one was
-            // output.src = "{{ $admin->profile_photo_path ? Storage::url($admin->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($admin->name).'&color=FFFFFF&background=4A55A2&size=100' }}";
         }
     }
 </script>

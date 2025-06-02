@@ -4,7 +4,6 @@
 @section('page-title', 'Support Inbox')
 
 @push('styles')
-{{-- Reusing inbox styles. Consider centralizing to layouts/partials or app.css --}}
 <style>
     .inbox-container { display: flex; height: calc(100vh - 120px); border: 1px solid var(--border-color-light); border-radius: 0.5rem; overflow: hidden; }
     body.dark-mode .inbox-container { border-color: var(--border-color-dark); }
@@ -46,9 +45,9 @@
                     @foreach ($conversations as $sr)
                         @php
                             $otherPartyUser = null;
-                            if ($sr->client_id === $adminId) { // Admin initiated, other party is provider_id (the user)
+                            if ($sr->client_id === $adminId) {
                                 $otherPartyUser = $sr->provider;
-                            } elseif ($sr->provider_id === $adminId) { // User initiated with Admin, other party is client_id
+                            } elseif ($sr->provider_id === $adminId) {
                                 $otherPartyUser = $sr->client;
                             }
                             $latestMessage = $sr->messages->first();

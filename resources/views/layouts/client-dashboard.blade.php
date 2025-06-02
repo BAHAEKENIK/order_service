@@ -7,7 +7,6 @@
 
     <title>@yield('title', 'Client Dashboard') - Easy Services</title>
 
-    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|poppins:400,500,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -16,19 +15,19 @@
 
     <style>
         :root {
-            --primary-color: #4A55A2; /* Indigo-like color from PDF */
+            --primary-color: #4A55A2;
             --primary-hover-color: #3A4382;
-            --secondary-color: #7895CB; /* Lighter blue for accents */
-            --sidebar-bg-light: #F9FAFB; /* Tailwind gray-50 */
-            --sidebar-bg-dark: #1F2937; /* Tailwind gray-800 */
-            --sidebar-text-light: #374151; /* Tailwind gray-700 */
-            --sidebar-text-dark: #D1D5DB; /* Tailwind gray-300 */
-            --sidebar-active-bg-light: #E5E7EB; /* Tailwind gray-200 */
-            --sidebar-active-bg-dark: #374151; /* Tailwind gray-700 */
+            --secondary-color: #7895CB;
+            --sidebar-bg-light: #F9FAFB;
+            --sidebar-bg-dark: #1F2937;
+            --sidebar-text-light: #374151;
+            --sidebar-text-dark: #D1D5DB;
+            --sidebar-active-bg-light: #E5E7EB;
+            --sidebar-active-bg-dark: #374151;
             --sidebar-active-text-light: var(--primary-color);
             --sidebar-active-text-dark: #FFFFFF;
             --content-bg-light: #FFFFFF;
-            --content-bg-dark: #111827; /* Tailwind gray-900 */
+            --content-bg-dark: #111827;
             --text-light: #F9FAFB;
             --text-dark: #1F2937;
             --border-color-light: #E5E7EB;
@@ -47,55 +46,54 @@
             display: flex;
             flex-direction: column;
             transition: background-color 0.3s, border-color 0.3s;
-            position: fixed; /* Fixed sidebar */
+            position: fixed;
             left: 0;
             top: 0;
             height: 100vh;
-            z-index: 10; /* Ensure it's behind modals but above content */
+            z-index: 10;
         }
         body.dark-mode .sidebar { background-color: var(--sidebar-bg-dark); border-right-color: var(--border-color-dark); }
 
-        .sidebar-logo img { height: 2.5rem; /* 40px */ margin-bottom: 2rem; margin-left:0.5rem } /* Adjusted logo size slightly based on PDF look */
+        .sidebar-logo img { height: 2.5rem; margin-bottom: 2rem; margin-left:0.5rem }
         .sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
         .sidebar-nav li a {
             display: flex;
             align-items: center;
-            padding: 0.75rem 1rem; /* Consistent padding */
-            margin-bottom: 0.5rem; /* Spacing between items */
-            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.375rem;
             text-decoration: none;
             color: var(--sidebar-text-light);
-            font-weight: 500; /* medium */
-            font-size: 0.9rem; /* Slightly smaller font if needed */
+            font-weight: 500;
+            font-size: 0.9rem;
             transition: background-color 0.2s, color 0.2s;
         }
         body.dark-mode .sidebar-nav li a { color: var(--sidebar-text-dark); }
         .sidebar-nav li a:hover { background-color: var(--sidebar-active-bg-light); color: var(--sidebar-active-text-light); }
         body.dark-mode .sidebar-nav li a:hover { background-color: var(--sidebar-active-bg-dark); color: var(--sidebar-active-text-dark); }
-        /* Active state more prominent as per PDF */
         .sidebar-nav li a.active { background-color: var(--primary-color) !important; color: white !important; }
-        .sidebar-nav li a.active i { color: white !important; } /* Ensure icon color changes too */
+        .sidebar-nav li a.active i { color: white !important; }
         body.dark-mode .sidebar-nav li a.active { background-color: var(--primary-color) !important; color: white !important; }
         .sidebar-nav li a i { margin-right: 0.75rem; width: 20px; text-align: center; font-size: 1.1rem; }
 
         .sidebar-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color-light); }
         body.dark-mode .sidebar-footer { border-top-color: var(--border-color-dark); }
         .user-profile-widget { display: flex; align-items: center; padding: 0.5rem 0; }
-        .user-profile-widget img { width: 36px; /* Slightly smaller avatar */ height: 36px; border-radius: 50%; margin-right: 0.75rem; object-fit: cover; border: 1px solid var(--border-color-light); }
+        .user-profile-widget img { width: 36px; height: 36px; border-radius: 50%; margin-right: 0.75rem; object-fit: cover; border: 1px solid var(--border-color-light); }
         body.dark-mode .user-profile-widget img { border-color: var(--border-color-dark); }
-        .user-profile-widget div p:first-child { font-weight: 500; /* medium */ color: var(--text-dark); font-size:0.875rem; margin-bottom: 0.1rem; }
+        .user-profile-widget div p:first-child { font-weight: 500; color: var(--text-dark); font-size:0.875rem; margin-bottom: 0.1rem; }
         body.dark-mode .user-profile-widget div p:first-child { color: var(--text-light); }
-        .user-profile-widget div a { font-size: 0.75rem; /* 12px */ color: var(--text-muted-light, #6B7280); text-decoration: none; }
+        .user-profile-widget div a { font-size: 0.75rem; color: var(--text-muted-light, #6B7280); text-decoration: none; }
         body.dark-mode .user-profile-widget div a { color: var(--text-muted-dark, #9CA3AF); }
         .user-profile-widget div a:hover { text-decoration: underline; }
         .user-profile-widget .settings-icon { margin-left: auto; color: var(--text-muted-light, #6B7280); font-size: 1rem; padding: 0.25rem; cursor:pointer;}
         body.dark-mode .user-profile-widget .settings-icon { color: var(--text-muted-dark, #9CA3AF); }
 
         .main-content-wrapper {
-            margin-left: 260px; /* Same as sidebar width */
+            margin-left: 260px;
             flex-grow: 1;
             display: flex;
-            flex-direction: column; /* To make header and main stack */
+            flex-direction: column;
             min-height: 100vh;
         }
         .main-content {
@@ -105,48 +103,44 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem; /* Space below header */
-            padding-bottom: 1rem; /* Space below title/actions */
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
             border-bottom: 1px solid var(--border-color-light);
-            background-color: var(--content-bg-light); /* Give header a background */
-            padding: 1rem 2rem; /* Consistent padding for the header itself */
+            background-color: var(--content-bg-light);
+            padding: 1rem 2rem;
         }
         body.dark-mode .content-header { border-bottom-color: var(--border-color-dark); background-color: var(--content-bg-dark); }
-        .content-title { font-size: 1.5rem; font-weight: 600; /* Semibold as per PDF */ color:var(--text-dark); }
+        .content-title { font-size: 1.5rem; font-weight: 600; color:var(--text-dark); }
         body.dark-mode .content-title { color: var(--text-light); }
 
         .top-bar-actions { display: flex; align-items: center; gap: 1rem; }
         .top-bar-actions button, .top-bar-actions a { color: var(--text-muted-light, #6B7280); font-size:1.25rem; background: none; border:none; cursor: pointer; display:flex; align-items:center; padding:0.25rem; }
         body.dark-mode .top-bar-actions button, body.dark-mode .top-bar-actions a { color: var(--text-muted-dark, #9CA3AF); }
-        .top-bar-actions .logout-btn { font-size:0.8rem; /* Slightly smaller */ text-transform: uppercase; font-weight:500; padding: 0.3rem 0.6rem; border-radius: 0.25rem; }
+        .top-bar-actions .logout-btn { font-size:0.8rem; text-transform: uppercase; font-weight:500; padding: 0.3rem 0.6rem; border-radius: 0.25rem; }
         .top-bar-actions .logout-btn:hover { background-color: var(--sidebar-active-bg-light); color: var(--sidebar-text-light) }
         body.dark-mode .top-bar-actions .logout-btn:hover { background-color: var(--sidebar-active-bg-dark); color:var(--sidebar-text-dark) }
 
 
-        #theme-toggle-dashboard { font-size:1.1rem; /* Adjust size if needed */}
+        #theme-toggle-dashboard { font-size:1.1rem; }
 
-        /* Mobile specific for later - for now, just ensures sidebar can be hidden */
-        @media (max-width: 1024px) { /* Adjusted breakpoint, e.g., 'lg' in Tailwind */
+        @media (max-width: 1024px) {
             .sidebar {
-                /* Example of how you might hide it and show with JS */
                 transform: translateX(-100%);
                 transition: transform 0.3s ease-in-out;
                 position: fixed;
-                z-index: 40; /* High z-index for overlay */
+                z-index: 40;
             }
             .sidebar.open {
                 transform: translateX(0);
             }
             .main-content-wrapper {
-                margin-left: 0; /* Full width when sidebar is hidden/overlayed */
+                margin-left: 0;
             }
-            /* Add a hamburger icon button here that would be visible on mobile */
-            /* For now, sidebar will be hidden on smaller screens, you'd need JS to toggle it */
         }
     </style>
-    @stack('styles') {{-- For page-specific styles --}}
+    @stack('styles')
 </head>
-<body class="antialiased"> {{-- Add class="dark-mode" here if you want to default to dark for testing dashboard --}}
+<body class="antialiased">
     <div class="dashboard-layout">
         <aside class="sidebar" id="clientSidebar">
             <div class="sidebar-logo">
@@ -190,12 +184,7 @@
         </aside>
 
         <div class="main-content-wrapper">
-             {{-- Top bar within the main content area --}}
             <header class="content-header">
-                {{-- Mobile Hamburger Menu Button (placeholder) --}}
-                {{-- <button id="mobileMenuButton" class="lg:hidden p-2 mr-2 text-gray-600 dark:text-gray-300">
-                    <i class="fas fa-bars text-xl"></i>
-                </button> --}}
                 <h1 class="content-title">@yield('page-title', 'Dashboard')</h1>
                 <div class="top-bar-actions">
                      <button id="theme-toggle-dashboard" title="Toggle Theme">
@@ -204,7 +193,6 @@
                     </button>
                     <a href="{{ route('client.contact.admin') }}" title="Contact Admin / Notifications">
     <i class="fas fa-headset"></i>
-    {{-- You can add a badge here for unread admin messages later --}}
 </a>
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
@@ -238,7 +226,7 @@
         const moonIcon = themeToggleDashboard.querySelector('.fa-moon');
         if (theme === 'dark') {
             body.classList.add('dark-mode');
-            document.documentElement.classList.add('dark'); // For Tailwind's dark: prefix
+            document.documentElement.classList.add('dark');
             if (sunIcon) sunIcon.style.display = 'none';
             if (moonIcon) moonIcon.style.display = 'inline';
         } else {
@@ -249,7 +237,6 @@
         }
     };
 
-    // Load saved theme or system preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -257,7 +244,6 @@
     else if (prefersDark) { applyDashboardTheme('dark'); }
     else { applyDashboardTheme('light'); }
 
-    // Theme toggle button event
     if(themeToggleDashboard) {
         themeToggleDashboard.addEventListener('click', () => {
             const isDarkMode = body.classList.contains('dark-mode');
@@ -265,15 +251,6 @@
             else { applyDashboardTheme('dark'); localStorage.setItem('theme', 'dark'); }
         });
     }
-
-    // Placeholder for mobile sidebar toggle
-    // const mobileMenuButton = document.getElementById('mobileMenuButton');
-    // const sidebar = document.getElementById('clientSidebar');
-    // if (mobileMenuButton && sidebar) {
-    //     mobileMenuButton.addEventListener('click', () => {
-    //         sidebar.classList.toggle('open'); // You'd need to define .open style for sidebar
-    //     });
-    // }
 </script>
 @stack('scripts')
 </body>

@@ -10,15 +10,15 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->comment('Provider ID')->constrained('users')->onDelete('cascade'); // Le prestataire qui offre ce service
+            $table->foreignId('user_id')->comment('Provider ID')->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->string('address')->nullable(); // Adresse spécifique du service si différente de celle du prestataire
-            $table->string('city')->nullable(); // Ville où le service est offert
-            $table->decimal('base_price', 10, 2)->nullable(); // Prix de base du service
-            $table->string('image_path')->nullable(); // Image illustrative du service
-            $table->string('status')->default('available'); // 'available', 'unavailable'
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->decimal('base_price', 10, 2)->nullable();
+            $table->string('image_path')->nullable();
+            $table->string('status')->default('available');
             $table->timestamps();
         });
     }

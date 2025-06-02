@@ -5,7 +5,7 @@
 
 @push('styles')
 <style>
-    .content-card { /* Reused from categories/index.blade.php */
+    .content-card {
         background-color: var(--card-bg-light); border-radius: 0.5rem;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding:1.5rem; margin-bottom: 1.5rem;
     }

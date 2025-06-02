@@ -6,36 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact Us - Easy Services</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|poppins:400,500,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
     <style>
-
     </style>
     @endif
 
     <style>
-        /* Custom CSS */
         :root {
-            --primary-color: #4A55A2; /* A blue-purple like in the PDF */
+            --primary-color: #4A55A2;
             --primary-hover-color: #3A4382;
-            --secondary-color: #7895CB; /* A lighter blue for dark mode accents if needed */
+            --secondary-color: #7895CB;
             --text-light: #F8F9FA;
-            --text-dark: #2D3748; /* Tailwind gray-700 for text */
+            --text-dark: #2D3748;
             --bg-light: #FFFFFF;
-            --bg-dark: #1A202C; /* Tailwind gray-900 */
+            --bg-dark: #1A202C;
             --input-bg-light: #FFFFFF;
-            --input-bg-dark: #2D3748; /* Tailwind gray-800 for input fields */
-            --input-border-light: #CBD5E0; /* Tailwind gray-300 */
-            --input-border-dark: #4A5568;   /* Tailwind gray-600 */
-            --placeholder-light: #A0AEC0; /* Tailwind gray-500 */
-            --placeholder-dark: #718096; /* Tailwind gray-400 */
+            --input-bg-dark: #2D3748;
+            --input-border-light: #CBD5E0;
+            --input-border-dark: #4A5568;
+            --placeholder-light: #A0AEC0;
+            --placeholder-dark: #718096;
         }
 
         html.dark {
@@ -47,25 +43,24 @@
             background-color: var(--bg-light);
             color: var(--text-dark);
             transition: background-color 0.3s ease, color 0.3s ease;
-            padding-top: 70px; /* Adjust if header height changes */
+            padding-top: 70px;
         }
         body.dark-mode {
             background-color: var(--bg-dark);
             color: var(--text-light);
         }
 
-        /* Header styles - kept from previous for consistency if you use it */
         header {
             background-color: var(--bg-light);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            position: fixed; /* Fixed header */
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 50; /* Ensure it's above other content */
+            z-index: 50;
         }
         body.dark-mode header {
-            background-color: var(--input-bg-dark); /* Slightly different for contrast */
+            background-color: var(--input-bg-dark);
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
@@ -78,21 +73,20 @@
         body.dark-mode .nav-link {
             color: var(--text-light);
         }
-        .nav-link:hover, .nav-link.active { /* active class for current page */
+        .nav-link:hover, .nav-link.active {
             color: var(--primary-color);
         }
         body.dark-mode .nav-link:hover, body.dark-mode .nav-link.active {
             color: var(--secondary-color);
         }
 
-        /* Button styles - primary for Register and Send, secondary for Log in */
         .btn {
-            padding: 0.625rem 1.25rem; /* Consistent padding from PDF */
-            border-radius: 0.375rem; /* 6px in PDF looks like this */
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.375rem;
             text-decoration: none;
             display: inline-block;
             font-weight: 500;
-            font-size: 0.875rem; /* 14px */
+            font-size: 0.875rem;
             text-align: center;
             transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
             cursor: pointer;
@@ -107,12 +101,12 @@
             border-color: var(--primary-hover-color);
         }
         .btn-secondary {
-            background-color: #F3F4F6; /* Light gray from PDF */
+            background-color: #F3F4F6;
             color: var(--primary-color);
             border: 1px solid #F3F4F6;
         }
         .btn-secondary:hover {
-            background-color: #E5E7EB; /* Darker light gray */
+            background-color: #E5E7EB;
         }
         body.dark-mode .btn-secondary {
             background-color: var(--input-border-dark);
@@ -120,11 +114,9 @@
             border-color: var(--input-border-dark);
         }
          body.dark-mode .btn-secondary:hover {
-            background-color: #4A5568; /* A bit lighter than input-border-dark */
+            background-color: #4A5568;
         }
 
-
-        /* Form Styles */
         .form-label {
             display: block;
             margin-bottom: 0.5rem;
@@ -159,7 +151,7 @@
         .form-input:focus, .form-textarea:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(74, 85, 162, 0.2); /* Focus ring with primary color */
+            box-shadow: 0 0 0 2px rgba(74, 85, 162, 0.2);
         }
         body.dark-mode .form-input:focus, body.dark-mode .form-textarea:focus {
             border-color: var(--secondary-color);
@@ -170,27 +162,19 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Specific to Contact Page layout */
         .contact-form-container {
-            max-width: 800px; /* Adjust as needed */
+            max-width: 800px;
             margin: 2rem auto;
             padding: 2rem;
-            /* background-color: var(--bg-light); /* The page body handles this */
-            /* border-radius: 0.5rem; */
-            /* box-shadow: 0 4px 12px rgba(0,0,0,0.05); */
         }
-        /* body.dark-mode .contact-form-container { */
-            /* background-color: var(--input-bg-dark); /* Card-like background for form area in dark mode if desired */
-            /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
-        /* } */
 
         .form-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem 1.5rem; /* row-gap column-gap */
+            gap: 1rem 1.5rem;
         }
 
-        @media (min-width: 768px) { /* md breakpoint */
+        @media (min-width: 768px) {
             .form-grid-cols-2 {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -205,7 +189,6 @@
 </head>
 
 <body class="antialiased">
-    <!-- Header -->
     <header class="py-4 shadow-sm dark:shadow-md fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
             <a href="{{ url('/') }}">
@@ -274,7 +257,7 @@
                 </div>
 
                 <div class="form-group md:form-col-span-2">
-                    <label for="subject" class="form-label">Objet</label> {{-- Changed 'Object' to 'Objet' to match PDF --}}
+                    <label for="subject" class="form-label">Objet</label>
                     <input type="text" name="subject" id="subject" class="form-input" placeholder="enter objet" value="{{ old('subject') }}">
                 </div>
 
@@ -293,7 +276,6 @@
     </main>
 
 <script>
-    // Dark Mode Toggle
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
     const sunIcon = themeToggle.querySelector('.fa-sun');
@@ -319,7 +301,6 @@
         }
     };
 
-    // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 

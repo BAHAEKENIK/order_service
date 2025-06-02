@@ -7,7 +7,6 @@
 
     <title>@yield('title', 'Provider Dashboard') - Easy Services</title>
 
-    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|poppins:400,500,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -15,7 +14,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        /* COPIED from client-dashboard.blade.php - ideally centralize this */
         :root {
             --primary-color: #4A55A2; --primary-hover-color: #3A4382; --secondary-color: #7895CB;
             --sidebar-bg-light: #F9FAFB; --sidebar-bg-dark: #1F2937; --sidebar-text-light: #374151;
@@ -32,7 +30,7 @@
         body.dark-mode .sidebar { background-color: var(--sidebar-bg-dark); border-right-color: var(--border-color-dark); }
         .sidebar-logo img { height: 2.5rem; margin-bottom: 2rem; margin-left:0.5rem }
         .sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
-        .sidebar-nav li a { display: flex; align-items: center; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 0.375rem; text-decoration: none; color: var(--sidebar-text-light); font-weight: 500; font-size: 0.9rem; transition: background-color 0.2s, color 0.2s; position: relative; /* For notification dot */ }
+        .sidebar-nav li a { display: flex; align-items: center; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 0.375rem; text-decoration: none; color: var(--sidebar-text-light); font-weight: 500; font-size: 0.9rem; transition: background-color 0.2s, color 0.2s; position: relative; }
         body.dark-mode .sidebar-nav li a { color: var(--sidebar-text-dark); }
         .sidebar-nav li a:hover { background-color: var(--sidebar-active-bg-light); color: var(--sidebar-active-text-light); }
         body.dark-mode .sidebar-nav li a:hover { background-color: var(--sidebar-active-bg-dark); color: var(--sidebar-active-text-dark); }
@@ -41,17 +39,16 @@
         body.dark-mode .sidebar-nav li a.active { background-color: var(--primary-color) !important; color: white !important; }
         .sidebar-nav li a i { margin-right: 0.75rem; width: 20px; text-align: center; font-size: 1.1rem; }
 
-        .notification-dot { /* Tailwind classes in HTML, this is a fallback or can enhance */
+        .notification-dot {
             position: absolute; top: 0.5rem; right: 0.5rem;
-            width: 0.625rem; height: 0.625rem; /* w-2.5 h-2.5 */
-            background-color: #EF4444; /* red-500 */
-            border-radius: 9999px; /* rounded-full */
-            border: 2px solid var(--sidebar-bg-light); /* Or appropriate background */
+            width: 0.625rem; height: 0.625rem;
+            background-color: #EF4444;
+            border-radius: 9999px;
+            border: 2px solid var(--sidebar-bg-light);
         }
         body.dark-mode .sidebar-nav li a span.notification-dot {
             border-color: var(--sidebar-bg-dark);
         }
-
 
         .sidebar-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color-light); }
         body.dark-mode .sidebar-footer { border-top-color: var(--border-color-dark); }
@@ -60,11 +57,11 @@
         body.dark-mode .user-profile-widget img { border-color: var(--border-color-dark); }
         .user-profile-widget div p:first-child { font-weight: 500; color: var(--text-dark); font-size:0.875rem; margin-bottom: 0.1rem; }
         body.dark-mode .user-profile-widget div p:first-child { color: var(--text-light); }
-        .user-profile-widget div a.view-profile-link { font-size: 0.75rem; color: var(--text-muted-light, #6B7280); text-decoration: none; }
-        body.dark-mode .user-profile-widget div a.view-profile-link { color: var(--text-muted-dark, #9CA3AF); }
+        .user-profile-widget div a.view-profile-link { font-size: 0.75rem; color: #6B7280; text-decoration: none; }
+        body.dark-mode .user-profile-widget div a.view-profile-link { color: #9CA3AF; }
         .user-profile-widget div a.view-profile-link:hover { text-decoration: underline; }
-        .user-profile-widget .settings-icon { margin-left: auto; color: var(--text-muted-light, #6B7280); font-size: 1rem; padding: 0.25rem; cursor:pointer;}
-        body.dark-mode .user-profile-widget .settings-icon { color: var(--text-muted-dark, #9CA3AF); }
+        .user-profile-widget .settings-icon { margin-left: auto; color: #6B7280; font-size: 1rem; padding: 0.25rem; cursor:pointer;}
+        body.dark-mode .user-profile-widget .settings-icon { color: #9CA3AF; }
 
         .main-content-wrapper { margin-left: 260px; flex-grow: 1; display: flex; flex-direction: column; min-height: 100vh; }
         .main-content { flex-grow: 1; padding: 1.5rem 2rem; overflow-y: auto; }
@@ -73,8 +70,8 @@
         .content-title { font-size: 1.5rem; font-weight: 600; color:var(--text-dark); }
         body.dark-mode .content-title { color: var(--text-light); }
         .top-bar-actions { display: flex; align-items: center; gap: 1rem; }
-        .top-bar-actions button, .top-bar-actions a { color: var(--text-muted-light, #6B7280); font-size:1.25rem; background: none; border:none; cursor: pointer; display:flex; align-items:center; padding:0.25rem; }
-        body.dark-mode .top-bar-actions button, body.dark-mode .top-bar-actions a { color: var(--text-muted-dark, #9CA3AF); }
+        .top-bar-actions button, .top-bar-actions a { color: #6B7280; font-size:1.25rem; background: none; border:none; cursor: pointer; display:flex; align-items:center; padding:0.25rem; }
+        body.dark-mode .top-bar-actions button, body.dark-mode .top-bar-actions a { color: #9CA3AF; }
         .top-bar-actions .logout-btn { font-size:0.8rem; text-transform: uppercase; font-weight:500; padding: 0.3rem 0.6rem; border-radius: 0.25rem; }
         .top-bar-actions .logout-btn:hover { background-color: var(--sidebar-active-bg-light); color: var(--sidebar-text-light) }
         body.dark-mode .top-bar-actions .logout-btn:hover { background-color: var(--sidebar-active-bg-dark); color:var(--sidebar-text-dark) }
@@ -115,8 +112,6 @@
                         <a href="{{ route('provider.messages.index') }}" class="relative {{ request()->routeIs('provider.messages.*') ? 'active' : '' }}">
                             <i class="fas fa-inbox"></i> Inbox
                             @php
-                                // Count unread messages for the provider
-                                // This is a simplified query for illustration. In a real app, you'd optimize this.
                                 $unreadMessagesCount = 0;
                                 if(Auth::check() && Auth::user()->isProvider()){
                                     $unreadMessagesCount = \App\Models\Message::where('receiver_id', Auth::id())
@@ -190,8 +185,8 @@
     const themeToggleDashboard = document.getElementById('theme-toggle-dashboard');
     const body = document.body;
     const applyDashboardTheme = (theme) => {
-        const sunIcon = themeToggleDashboard?.querySelector('.fa-sun'); // Add optional chaining
-        const moonIcon = themeToggleDashboard?.querySelector('.fa-moon'); // Add optional chaining
+        const sunIcon = themeToggleDashboard?.querySelector('.fa-sun');
+        const moonIcon = themeToggleDashboard?.querySelector('.fa-moon');
         if (theme === 'dark') {
             body.classList.add('dark-mode'); document.documentElement.classList.add('dark');
             if(sunIcon) sunIcon.style.display='none'; if(moonIcon) moonIcon.style.display='inline';

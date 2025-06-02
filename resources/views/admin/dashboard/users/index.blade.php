@@ -5,7 +5,6 @@
 
 @push('styles')
 <style>
-    /* Styles from previous response for stat cards reused here if desired */
     .stats-overview-admin { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
     .stat-card-admin { background-color: var(--card-bg-light); padding: 1.25rem; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; align-items: center; }
     body.dark-mode .stat-card-admin { background-color: var(--card-bg-dark); }
@@ -45,31 +44,25 @@
     .btn-action-chat { background-color: #F0FDF4; color: #16A34A; border-color:#DCFCE7; } body.dark-mode .btn-action-chat { background-color: #14532D; color: #86EFAC; border-color:#22C55E;}
     .pagination-links { margin-top: 1.5rem; }
 
-    /* === MODAL STYLES - THEME AWARE === */
     .modal {
         display: none; position: fixed; z-index: 1050; left: 0; top: 0;
         width: 100%; height: 100%; overflow: auto;
-        background-color: rgba(0,0,0,0.6); /* Dark backdrop for both themes */
+        background-color: rgba(0,0,0,0.6);
         align-items:center; justify-content:center;
         transition: opacity 0.3s ease;
     }
-    .modal.active { display: flex; opacity: 1; } /* For potential fade-in */
+    .modal.active { display: flex; opacity: 1; }
     .modal-content {
         margin: auto; padding: 2rem; border-radius: 0.5rem;
         width: 90%; max-width: 450px; position: relative;
         box-shadow: 0 10px 25px rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.1);
-        /* Theme-aware background and text */
-        background-color: var(--content-bg-light); /* Modal bg is page content bg for contrast in dark mode */
+        background-color: var(--content-bg-light);
         color: var(--text-dark);
-        border: 1px solid var(--border-color-dark); /* Subtle border */
+        border: 1px solid var(--border-color-dark);
     }
     body.dark-mode .modal-content {
-        background-color: var(--content-bg-dark); /* If you want modal to follow main bg color */
-        /* OR if you want contrasting modal: */
-        /* background-color: var(--card-bg-light); */
-        /* color: var(--text-dark); */
-        /* border: 1px solid var(--border-color-light); */
-        color: var(--text-light); /* Text must be light if modal bg is dark */
+        background-color: var(--content-bg-dark);
+        color: var(--text-light);
         border: 1px solid var(--border-color-light);
     }
 
@@ -82,7 +75,6 @@
     body.dark-mode .modal-close-btn:hover, body.dark-mode .modal-close-btn:focus { color: var(--text-light); }
 
     .modal-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
-    /* Modal text will inherit from .modal-content color based on theme */
     .modal-text { font-size: 0.9rem; margin-bottom: 1.5rem; }
     .modal-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top:1.5rem; }
 
@@ -90,7 +82,7 @@
     .modal-btn-cancel {
         background-color: var(--border-color-light);
         color: var(--text-dark);
-        border: 1px solid var(--border-color-dark); /* Subtle border */
+        border: 1px solid var(--border-color-dark);
     }
     .modal-btn-cancel:hover { opacity:0.8; }
     body.dark-mode .modal-btn-cancel {
@@ -100,18 +92,17 @@
     }
     .modal-btn-confirm { background-color: #DC2626; color: white; }
     .modal-btn-confirm:hover { background-color: #B91C1C; }
-    /* Dark mode for confirm already covered by default in red */
 
-    .modal-form-input { /* For password input in modal */
+    .modal-form-input {
         width: 100%; padding: 0.65rem 0.9rem;
         border: 1px solid var(--border-color-light);
         border-radius: 0.375rem; font-size: 0.875rem;
-        background-color: var(--card-bg-light); /* For input inside modal */
+        background-color: var(--card-bg-light);
         color: var(--text-dark);
     }
     body.dark-mode .modal-form-input {
-        background-color: var(--card-bg-dark); /* For input inside dark modal */
-        border-color: var(--border-color-light); /* Light border for contrast on dark input */
+        background-color: var(--card-bg-dark);
+        border-color: var(--border-color-light);
         color: var(--text-light);
     }
      .modal-form-input:focus {
@@ -122,14 +113,10 @@
         border-color: var(--secondary-color);
         box-shadow: 0 0 0 2px rgba(120, 149, 203, 0.2);
     }
-    /* === END OF MODAL STYLES === */
 </style>
 @endpush
 
 @section('content')
-    {{-- Stats are on main admin dashboard page (index.blade.php) --}}
-    {{-- Or you can add more specific user stats here --}}
-
     <div class="user-filters-and-actions">
         <form method="GET" action="{{ route('admin.users.index') }}" class="user-filters">
             <div class="role-filter">
@@ -205,7 +192,7 @@
                     {{ $users->appends(request()->query())->links() }}
                 </div>
             @endif
-             <div class="mt-6"> {{-- Adjusted margin-top for better spacing --}}
+             <div class="mt-6">
                 <button type="button" class="btn-bulk-delete" onclick="openAdminDeleteSelectedUsersModal()" id="adminDeleteSelectedButton" style="display:none;">
                     <i class="fas fa-trash-alt mr-1"></i> Delete Selected Users
                 </button>
@@ -213,13 +200,12 @@
         </form>
     @endif
 
-    <!-- Modal for Single User Delete by Admin -->
     <div id="adminDeleteUserModal" class="modal">
         <div class="modal-content">
             <span class="modal-close-btn" onclick="closeAdminDeleteUserModal()">×</span>
             <h4 class="modal-title">Confirm User Deletion</h4>
             <p class="modal-text">Are you sure you want to delete user <strong id="adminUserNameToDelete" class="font-semibold"></strong>? This will remove their data and cannot be undone.</p>
-            <form id="adminSingleUserDeleteForm" method="POST" class="mt-4"> {{-- Action set by JS --}}
+            <form id="adminSingleUserDeleteForm" method="POST" class="mt-4">
                 @csrf
                 @method('DELETE')
                 <div class="modal-actions">
@@ -230,7 +216,6 @@
         </div>
     </div>
 
-    <!-- Modal for Delete ALL Users Confirmation -->
     <div id="adminDeleteAllUsersModal" class="modal">
         <div class="modal-content">
             <span class="modal-close-btn" onclick="closeAdminDeleteAllUsersModal()">×</span>
@@ -243,7 +228,7 @@
                 <div class="form-group">
                     <label for="admin_delete_all_confirm_password" class="form-label">Your Admin Password:</label>
                     <input type="password" name="delete_all_confirm_password" id="admin_delete_all_confirm_password" class="form-input modal-form-input" required>
-                    @error('delete_all_confirm_password', 'deleteAllUsers') {{-- Specify error bag --}}
+                    @error('delete_all_confirm_password', 'deleteAllUsers')
                          <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -255,8 +240,7 @@
         </div>
     </div>
 
-     <!-- Modal for Delete SELECTED Users Confirmation -->
-    <div id="adminDeleteSelectedUsersModal" class="modal">
+     <div id="adminDeleteSelectedUsersModal" class="modal">
         <div class="modal-content">
             <span class="modal-close-btn" onclick="closeAdminDeleteSelectedUsersModal()">×</span>
             <h4 class="modal-title">Confirm Delete Selected Users</h4>
@@ -279,7 +263,7 @@
     function confirmSingleUserDeleteByAdmin(userId, userName) {
         if(adminSingleUserDeleteForm) adminSingleUserDeleteForm.action = "{{ url('admin/users') }}/" + userId;
         if(adminUserNameToDeleteSpan) adminUserNameToDeleteSpan.textContent = userName;
-        if(adminDeleteUserModal) adminDeleteUserModal.style.display = "flex"; // Use flex for centering
+        if(adminDeleteUserModal) adminDeleteUserModal.style.display = "flex";
     }
     function closeAdminDeleteUserModal() { if(adminDeleteUserModal) adminDeleteUserModal.style.display = "none"; }
 
@@ -295,7 +279,6 @@
             adminDeleteAllUsersModal.style.display = "none";
             const passInput = document.getElementById('admin_delete_all_confirm_password');
             if(passInput) passInput.value = '';
-            // Clear previous specific errors for this modal's form
             const errorElements = adminDeleteAllUsersModal.querySelectorAll('p.text-red-500.text-xs.mt-1');
             errorElements.forEach(el => el.textContent = '');
         }
@@ -315,10 +298,8 @@
     function closeAdminDeleteSelectedUsersModal() { if(adminDeleteSelectedUsersModal) adminDeleteSelectedUsersModal.style.display = "none"; }
 
     function submitBulkDeleteForm() {
-        // Ensure delete_all_flag is NOT set for this form submission
         let deleteAllFlagInput = mainBulkDeleteForm.querySelector('input[name="delete_all_flag"]');
         if (deleteAllFlagInput) deleteAllFlagInput.remove();
-        // Ensure some checkboxes are selected
         const checkedUserIds = Array.from(document.querySelectorAll('.admin-user-checkbox:checked')).map(cb => cb.value);
         if(checkedUserIds.length > 0) {
             mainBulkDeleteForm.submit();

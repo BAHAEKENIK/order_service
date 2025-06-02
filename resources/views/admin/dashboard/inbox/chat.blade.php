@@ -1,6 +1,5 @@
 @extends('layouts.admin-dashboard')
 
-{{-- Determine the name for the title correctly --}}
 @php
     $chatPartnerName = $otherParty ? $otherParty->name . ' (' . Str::ucfirst($otherParty->role) . ')' : 'User';
     $pageSubject = $serviceRequest->category->name === 'Admin Direct User Chat' || $serviceRequest->category->name === 'Admin Support'

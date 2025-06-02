@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\AsArrayObject; // Pour une meilleure manipulation du JSON
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 
 class ProviderDetail extends Model
 {
@@ -19,16 +19,11 @@ class ProviderDetail extends Model
     ];
 
     protected $casts = [
-        'certificates' => AsArrayObject::class, // Ou 'array' si vous préférez un simple tableau PHP
+        'certificates' => AsArrayObject::class,
         'is_available' => 'boolean',
         'average_rating' => 'decimal:1',
     ];
 
-    // Relations
-
-    /**
-     * Get the user (provider) that owns these details.
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
