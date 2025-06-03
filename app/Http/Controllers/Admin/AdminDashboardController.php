@@ -1,6 +1,3 @@
-Voici le code sans commentaires et structuré sans modification fonctionnelle :
-
-```php
 <?php
 
 namespace App\Http\Controllers\Admin;
@@ -458,4 +455,4 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.profile.edit')->with('success', 'Admin profile updated successfully.');
     }
 }
-```
+

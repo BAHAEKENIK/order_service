@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $admin = User::firstOrCreate(
             ['email' => 'bahaekenik@gmail.com'],
             [
-                'name' => 'Baha eddine Kenioua',
+                'name' => 'Bahae Kenikssi',
                 'password' => Hash::make('password'),
                 'role' => 'admin',
                 'email_verified_at' => now(),
