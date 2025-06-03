@@ -17,7 +17,7 @@
     @else
     {{-- Fallback Tailwind styles (your provided snippet) if Vite isn't running --}}
     <style>
-        
+
     </style>
     @endif
 
@@ -226,43 +226,47 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Service Card 1 -->
                 <div class="service-card shadow-lg">
-                    <img src="https://picsum.photos/seed/painting/400/250" alt="House Painting" class="w-full h-48 object-cover">
+                    <img src="{{ asset('images/paint_house.jfif') }}" alt="House Painting" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">House Painting</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Build modern websites</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Learn coding techniques</p>
-                        <a href="{{ route('register') }}" class="btn-outline text-sm w-full text-center">Discover</a>
-                    </div>
+    <h3 class="text-xl font-semibold mb-2">House Painting</h3>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Professional interior and exterior painting</p>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Get tips, tools, and color inspiration for your home</p>
+    <a href="{{ route('register') }}" class="btn-outline text-sm w-full text-center">Discover</a>
+</div>
+
                 </div>
                 <!-- Service Card 2 -->
                 <div class="service-card shadow-lg">
-                    <img src="https://picsum.photos/seed/cleaning/400/250" alt="Cleaning" class="w-full h-48 object-cover">
+                    <img src="{{asset('images/cleaning.jfif')}}" alt="Cleaning" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Cleaning</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Capture stunning moments</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Master editing skills</p>
-                        <a href="{{ route('register') }}" class="btn-outline text-sm w-full text-center">Discover</a>
-                    </div>
+    <h3 class="text-xl font-semibold mb-2">Cleaning</h3>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Keep your space spotless and fresh</p>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Learn effective cleaning tips and techniques</p>
+    <a href="{{ route('register') }}" class="btn-outline text-sm w-full text-center">Discover</a>
+</div>
+
                 </div>
                 <!-- Service Card 3 -->
                 <div class="service-card shadow-lg">
-                    <img src="https://picsum.photos/seed/housekeeping/400/250" alt="House keeping" class="w-full h-48 object-cover">
+                    <img src="{{asset('images/house_kippen.jfif')}}" alt="House keeping" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">House keeping</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Unleash your creativity</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Learn design principles</p>
-                        <a href="{{ route('register') }}" class="btn-outline text-sm w-full text-center">Discover</a>
-                    </div>
+    <h3 class="text-xl font-semibold mb-2">House keeping</h3>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Maintain a clean and organized home</p>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Learn practical housekeeping tips and routines</p>
+    <a href="{{ route('register') }}" class="btn-outline text-sm w-full text-center">Discover</a>
+</div>
+
                 </div>
                 <!-- Service Card 4 -->
                 <div class="service-card shadow-lg">
                     <img src="https://picsum.photos/seed/transport/400/250" alt="Transportation" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Transportation</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Achieve your fitness goals</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Access wellness tips</p>
-                        <a href="{{ route('register') }}" class="btn-outline text-sm w-full text-center">Discover</a>
-                    </div>
+    <h3 class="text-xl font-semibold mb-2">Transportation</h3>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Reliable and efficient travel solutions</p>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Explore transport options for every need</p>
+    <a href="{{ route('register') }}" class="btn-outline text-sm w-full text-center">Discover</a>
+</div>
+
                 </div>
             </div>
         </div>
@@ -359,7 +363,7 @@
                     </div>
                 </div>
                 <div>
-                    <img src="https://picsum.photos/seed/team/600/400" alt="Our Team" class="rounded-lg shadow-xl w-full">
+                    <img src="{{asset('images/about_us.jfif')}}" alt="Our Team" class="rounded-lg shadow-xl w-full">
                 </div>
             </div>
         </div>
@@ -370,7 +374,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div class="order-2 md:order-1">
-                    <img src="https://picsum.photos/seed/provider/600/400" alt="Service Provider" class="rounded-lg shadow-xl w-full">
+                    <img src="{{asset('images/become_a_provider.jfif')}}" alt="Service Provider" class="rounded-lg shadow-xl w-full">
                 </div>
                 <div class="order-1 md:order-2 text-center md:text-left">
                     <h2 class="text-3xl font-bold mb-6">Become a Service Provider</h2>
@@ -392,11 +396,6 @@
             <div class="mb-6">
                  <a href="{{ url('/') }}" class="text-3xl font-bold text-white">Order Service</a>
             </div>
-            <div class="mb-6 space-x-6">
-                <a href="#" class="hover:text-white">Privacy Policy</a>
-                <a href="#" class="hover:text-white">Terms of Service</a>
-                <a href="#" class="hover:text-white">Sitemap</a>
-            </div>
             <div class="mb-6 text-xl space-x-6">
                 <a href="#" class="hover:text-white"><i class="fab fa-twitter"></i></a>
                 <a href="#" class="hover:text-white"><i class="fab fa-facebook-f"></i></a>
@@ -404,7 +403,6 @@
                 <a href="#" class="hover:text-white"><i class="fab fa-youtube"></i></a>
             </div>
             <p class="text-sm">© {{ date('Y') }} Easy Services. All rights reserved.</p>
-            <p class="text-xs mt-2">Inspired by "Prestataire", made with passion.</p>
         </div>
     </footer>
 
