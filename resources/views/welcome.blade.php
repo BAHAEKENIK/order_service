@@ -187,7 +187,9 @@
                 <a href="{{ url('/') }}" class="nav-link hover:text-primary-color dark:hover:text-secondary-color font-medium">Home</a>
                 <a href="#about-us" class="nav-link hover:text-primary-color dark:hover:text-secondary-color font-medium">About Us</a>
                 <a href="#popular-services" class="nav-link hover:text-primary-color dark:hover:text-secondary-color font-medium">Provide service</a>
-                <a href="{{ route('contact') }}" class="nav-link hover:text-primary-color dark:hover:text-secondary-color font-medium">Contact us</a>
+                @guest
+                    <a href="{{ route('contact') }}" class="nav-link hover:text-primary-color dark:hover:text-secondary-color font-medium">Contact us</a>
+                @endguest
             </nav>
             <div class="flex items-center space-x-2 sm:space-x-4">
                 <button id="theme-toggle" class="p-2 rounded-md">
